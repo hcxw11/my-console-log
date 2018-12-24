@@ -46,5 +46,6 @@ const getLineSpace = curry((lineChars: string, message: string) => {
 });
 
 function getPrintLog(message: string): string {
-  return `console.log(${message});\r\n`;
+  const showSemicolon = vscode.workspace.getConfiguration().semicolon;
+  return `console.log(${message})${showSemicolon ? ";" : ""}\r\n`;
 }
