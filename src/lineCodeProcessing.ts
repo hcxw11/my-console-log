@@ -4,8 +4,7 @@ import { curry, pipe } from "ramda";
 import {
   classFormatText,
   functionFormatText,
-  variableNameFormatText,
-  variableValueFormatText
+  variableFormatText
 } from "./constant";
 
 const formatText = {
@@ -180,9 +179,6 @@ const formatFunctionList = curry(formatList)("function");
  * @param format 格式
  */
 const formatVariable = curry((variable: string, format: string) => {
-  const reg = new RegExp(
-    `(${variableNameFormatText}|${variableValueFormatText})`,
-    "g"
-  );
+  const reg = new RegExp(`(${variableFormatText}|${variableFormatText})`, "g");
   return format.replace(reg, variable);
 });

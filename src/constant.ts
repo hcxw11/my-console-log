@@ -1,4 +1,3 @@
-export var classFormatText = "{class}";
-export var functionFormatText = "{function}";
-export var variableNameFormatText = "{varName}";
-export var variableValueFormatText = "{varValue}";
+export var classFormatText = "{C}";
+export var functionFormatText = "{F}";
+export var variableFormatText = "{V}";

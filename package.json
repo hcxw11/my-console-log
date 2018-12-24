@@ -10,30 +10,67 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:myConsoleLog.displayLogMessage"
+    "onCommand:myConsoleLog.displayLog",
+    "onCommand:myConsoleLog.deleteAllLog",
+    "onCommand:myConsoleLog.commentAllLog",
+    "onCommand:myConsoleLog.unCommentAllLog"
   ],
   "main": "./out/extension",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "My Console Log Configuration",
+      "properties": {
+        "normalLogFormat": {
+          "type": "string",
+          "default": "'{C} -> {F} -> {V}:', {V}",
+          "description": "normal log format."
+        },
+        "noVarLogFormat": {
+          "type": "string",
+          "default": "'{C} -> {F}'",
+          "description": "no variable log format."
+        }
+      }
+    },
     "commands": [
       {
-        "command": "myConsoleLog.displayLogMessage",
-        "title": "add log"
+        "command": "myConsoleLog.displayLog",
+        "title": "my console log: add log"
       },
       {
-        "command": "myConsoleLog.displayLogMessage",
-        "title": "delete all log"
+        "command": "myConsoleLog.deleteAllLog",
+        "title": "my console log: delete all log"
+      },
+      {
+        "command": "myConsoleLog.commentAllLog",
+        "title": "my console log: comment all log"
+      },
+      {
+        "command": "myConsoleLog.unCommentAllLog",
+        "title": "my console log: unComment all log"
       }
     ],
     "keybindings": [
       {
-        "command": "myConsoleLog.displayLogMessage",
+        "command": "myConsoleLog.displayLog",
         "key": "alt+shift+l",
         "mac": "alt+shift+l"
       },
       {
-        "command": "myConsoleLog.deleteAllLogMessages",
+        "command": "myConsoleLog.deleteAllLog",
         "key": "alt+shift+d",
         "mac": "alt+shift+d"
+      },
+      {
+        "command": "myConsoleLog.commentAllLog",
+        "key": "alt+shift+c",
+        "mac": "alt+shift+c"
+      },
+      {
+        "command": "myConsoleLog.unCommentAllLog",
+        "key": "alt+shift+u",
+        "mac": "alt+shift+u"
       }
     ]
   },
