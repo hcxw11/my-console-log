@@ -17,14 +17,23 @@
     "commands": [
       {
         "command": "myConsoleLog.displayLogMessage",
-        "title": "log"
+        "title": "add log"
+      },
+      {
+        "command": "myConsoleLog.displayLogMessage",
+        "title": "delete all log"
       }
     ],
     "keybindings": [
       {
         "command": "myConsoleLog.displayLogMessage",
-        "key": "ctrl+alt+l",
-        "mac": "ctrl+alt+l"
+        "key": "alt+shift+l",
+        "mac": "alt+shift+l"
+      },
+      {
+        "command": "myConsoleLog.deleteAllLogMessages",
+        "key": "alt+shift+d",
+        "mac": "alt+shift+d"
       }
     ]
   },

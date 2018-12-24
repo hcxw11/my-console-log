@@ -32,6 +32,24 @@ export function activate(context: vscode.ExtensionContext) {
       editBuilder.insert(new vscode.Position(lineOfSelectedVar + 1, 0), log);
     });
   });
+
+  vscode.commands.registerCommand("myConsoleLog.deleteAllLogMessages", () => {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+      return;
+    }
+    const document = editor.document;
+
+    editor.edit(editBuilder => {
+      const documentLines = document.lineCount;
+      for (let i = 0; i < documentLines; i++) {
+        const lineText: string = document.lineAt(i).text;
+        if (lineText.indexOf("console.log(") !== -1) {
+          editBuilder.delete(document.lineAt(i).rangeIncludingLineBreak);
+        }
+      }
+    });
+  });
 }
 
 // this method is called when your extension is deactivated
