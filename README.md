@@ -1,65 +1,22 @@
-# my-log README
+# my-console-log README
 
-This is the README for your extension "my-log". After writing up a brief description, we recommend including the following sections.
+使用快捷键快速生成log
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### 增加log
+1. 选中变量
+2. 使用快捷键alt+shift+l 快速在下插入log，默认格式为`console.log('{C} -> {F} -> {V}:', {V})`，可以在设置中修改  
+注： 不选中变量的情况下输出`console.log('{C} -> {F}')`
 
-For example if there is an image subfolder under your extension project workspace:
+### 删除该文件所有的log
+1. 使用快捷键alt+shift+d  
+注： 只针对`console.log`
 
-\!\[feature X\]\(images/feature-x.png\)
+### 注释该文件所有的log
+1. 使用快捷键alt+shift+c   
+注： 只针对`console.log`
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+### 取消注释该文件所有的log
+1. 使用快捷键alt+shift+u   
+注： 只针对`console.log`

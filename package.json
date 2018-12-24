@@ -1,6 +1,6 @@
 {
-  "name": "my-log",
-  "displayName": "my-log",
+  "name": "my-console-log",
+  "displayName": "my-console-log",
   "description": "create log",
   "version": "0.0.1",
   "engines": {
