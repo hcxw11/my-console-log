@@ -1,0 +1,47 @@
+{
+  "name": "my-log",
+  "displayName": "my-log",
+  "description": "create log",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.30.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:myConsoleLog.displayLogMessage"
+  ],
+  "main": "./out/extension",
+  "contributes": {
+    "commands": [
+      {
+        "command": "myConsoleLog.displayLogMessage",
+        "title": "log"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "myConsoleLog.displayLogMessage",
+        "key": "ctrl+alt+l",
+        "mac": "ctrl+alt+l"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "npm run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "typescript": "^3.1.4",
+    "vscode": "^1.1.25",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "ramda": "^0.26.1"
+  }
+}
