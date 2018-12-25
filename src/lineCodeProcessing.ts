@@ -2,14 +2,14 @@ import * as vscode from "vscode";
 import { curry, pipe } from "ramda";
 
 import {
-  classFormatText,
-  functionFormatText,
-  variableFormatText
+  CLASS_FORMAT_TEXT,
+  FUNCTION_FORMAT_TEXT,
+  VARIABLE_FORMAT_TEXT
 } from "./constant";
 
 const formatText = {
-  class: classFormatText,
-  function: functionFormatText
+  class: CLASS_FORMAT_TEXT,
+  function: FUNCTION_FORMAT_TEXT
 };
 
 export default class LineCodeProcessing {
@@ -185,6 +185,9 @@ const formatFunctionList = curry(formatList)("function");
  * @param format 格式
  */
 const formatVariable = curry((variable: string, format: string) => {
-  const reg = new RegExp(`(${variableFormatText}|${variableFormatText})`, "g");
+  const reg = new RegExp(
+    `(${VARIABLE_FORMAT_TEXT}|${VARIABLE_FORMAT_TEXT})`,
+    "g"
+  );
   return format.replace(reg, variable);
 });

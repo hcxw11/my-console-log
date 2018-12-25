@@ -3,6 +3,12 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 import Message from "./message";
+import {
+  DEFAULT_COLOR_FORMAT,
+  DEFAULT_COLOR_NO_VAR_FORMAT,
+  DEFAULT_FORMAT,
+  DEFAULT_NO_VAR_FORMAT
+} from "./constant";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -16,11 +22,17 @@ export function activate(context: vscode.ExtensionContext) {
     const selection = editor.selection;
     const selectedVar = document.getText(selection);
     const lineOfSelectedVar = selection.active.line;
-    const logFormat =
-      vscode.workspace.getConfiguration().normalLogFormat ||
-      "'{C}->{F}->{V}', {V}";
-    const noValFormat =
-      vscode.workspace.getConfiguration().noValFormat || "'{C}->{F}'";
+
+    let logFormat = "";
+    let noValFormat = "";
+
+    if (vscode.workspace.getConfiguration().color) {
+      logFormat = DEFAULT_COLOR_FORMAT;
+      noValFormat = DEFAULT_COLOR_NO_VAR_FORMAT;
+    } else {
+      logFormat = DEFAULT_FORMAT;
+      noValFormat = DEFAULT_NO_VAR_FORMAT;
+    }
 
     const message = new Message(editor);
     const log = message.getLog(selectedVar ? logFormat : noValFormat);

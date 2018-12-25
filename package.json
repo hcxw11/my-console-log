@@ -22,20 +22,30 @@
       "type": "object",
       "title": "My Console Log Configuration",
       "properties": {
-        "normalLogFormat": {
-          "type": "string",
-          "default": "'{C} -> {F} -> {V}:', {V}",
-          "description": "normal log format."
-        },
-        "noVarLogFormat": {
-          "type": "string",
-          "default": "'{C} -> {F}'",
-          "description": "no variable log format."
+        "color": {
+          "type": "boolean",
+          "default": false,
+          "description": "show color"
         },
         "semicolon": {
           "type": "boolean",
           "default": true,
           "description": "show semicolon"
+        },
+        "classStyle": {
+          "type": "string",
+          "default": "color:hsl(198, 99%, 37%)",
+          "description": "class style in log"
+        },
+        "functionStyle": {
+          "type": "string",
+          "default": "color:hsl(41, 99%, 38%)",
+          "description": "class style in log"
+        },
+        "variableStyle": {
+          "type": "string",
+          "default": "color:hsl(221, 87%, 60%)",
+          "description": "class style in log"
         }
       }
     },
