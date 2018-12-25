@@ -1,8 +1,9 @@
 {
   "name": "my-console-log",
-  "displayName": "my-console-log",
-  "description": "create log",
+  "displayName": "My Console Log",
+  "description": "vscode extension of create log",
   "version": "0.0.1",
+  "publisher": "hcxw11",
   "engines": {
     "vscode": "^1.30.0"
   },
@@ -94,5 +95,13 @@
   },
   "dependencies": {
     "ramda": "^0.26.1"
+  },
+  "bugs": {
+    "url": "https://github.com/hcxw11/my-console-log.git/issues",
+    "email": "429759804@qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hcxw11/my-console-log.git"
   }
 }
