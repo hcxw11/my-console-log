@@ -45,13 +45,19 @@ export default class LineCodeProcessing {
   enclosingBlockName(): void {
     const { lineOfSelectedVar } = this;
     let currentLineNum = lineOfSelectedVar;
+    const codeBlock: Array<number> = [];
 
     while (currentLineNum >= 0) {
       const currentLineText = this.document.lineAt(currentLineNum).text;
       let keyword: string = "";
       let type: string = "";
 
-      if (checkJS(currentLineText)) {
+      // 上方有一个 { } 代码块，应该跳过
+      if (currentLineText.indexOf("}") !== -1) {
+        codeBlock.push(currentLineNum);
+      } else if (currentLineText.indexOf("{") !== -1 && codeBlock.length > 0) {
+        codeBlock.pop();
+      } else if (checkJS(currentLineText)) {
         currentLineNum--;
         continue;
       } else if (checkClass(currentLineText)) {
