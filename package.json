@@ -2,7 +2,7 @@
   "name": "my-console-log",
   "displayName": "My Console Log",
   "description": "vscode extension of create log",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "hcxw11",
   "engines": {
     "vscode": "^1.30.0"
