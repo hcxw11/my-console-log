@@ -173,7 +173,7 @@ function formatList(type: string, typeList: Array<CodeNode>, format: string) {
   if (typeList.length > 0) {
     typeName = typeList[typeList.length - 1].value;
   }
-  return format.replace(formatText[type], typeName);
+  return format.replace(formatText[type], typeName || `no ${type}`);
 }
 
 const formatClassList = curry(formatList)("class");
