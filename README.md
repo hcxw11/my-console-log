@@ -6,8 +6,7 @@
 
 ### 增加log
 1. 选中变量
-2. 使用快捷键alt+shift+l 快速在下插入log，默认格式为`console.log('{C} -> {F} -> {V}:', {V})`
-注： 不选中变量的情况下输出`console.log('{C} -> {F}')`
+2. 使用快捷键alt+shift+l 快速在下插入log，默认格式为`[{C}] [{F}] [{V}]`，输出`console.log('[class] [function] [variable]', variable)`，可在配置中修改需要的格式
 
 ### 删除该文件所有的log
 1. 使用快捷键alt+shift+d  

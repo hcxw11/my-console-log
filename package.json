@@ -2,7 +2,7 @@
   "name": "my-console-log",
   "displayName": "My Console Log",
   "description": "vscode extension of create log",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "hcxw11",
   "engines": {
     "vscode": "^1.30.0"
@@ -22,6 +22,11 @@
       "type": "object",
       "title": "My Console Log Configuration",
       "properties": {
+        "format": {
+          "type": "string",
+          "default": "[{C}] [{F}] [{V}]",
+          "description": "log format, default: [class] [function] [variable]"
+        },
         "color": {
           "type": "boolean",
           "default": false,

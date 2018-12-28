@@ -1,5 +1,11 @@
 import * as vscode from "vscode";
 import { curry, pipe } from "ramda";
+import {
+  ClassLogNode,
+  FunctionLogNode,
+  VariableLogNode,
+  LogNode
+} from "./LogNode";
 
 import {
   CLASS_FORMAT_TEXT,
@@ -9,15 +15,22 @@ import {
 
 const formatText = {
   class: CLASS_FORMAT_TEXT,
-  function: FUNCTION_FORMAT_TEXT
+  function: FUNCTION_FORMAT_TEXT,
+  variable: VARIABLE_FORMAT_TEXT
+};
+
+const LogClassMap = {
+  class: ClassLogNode,
+  function: FunctionLogNode,
+  variable: VariableLogNode
 };
 
 export default class LineCodeProcessing {
   document: vscode.TextDocument;
-  selectedVar: string;
   lineOfSelectedVar: number;
   classList: Array<CodeNode>;
   functionList: Array<CodeNode>;
+  variableList: Array<CodeNode>;
 
   constructor(
     document: vscode.TextDocument,
@@ -28,18 +41,30 @@ export default class LineCodeProcessing {
     this.lineOfSelectedVar = lineOfSelectedVar;
     this.classList = [];
     this.functionList = [];
-    this.selectedVar = selectedVar;
+    this.variableList = [
+      {
+        value: selectedVar,
+        line: lineOfSelectedVar
+      }
+    ];
     this.enclosingBlockName();
   }
 
   getProcessing(format: string): string {
-    const { classList, functionList, selectedVar } = this;
+    const originalLog: LogFormat = {
+      text: format,
+      param: []
+    };
+    const { classList, functionList, variableList } = this;
+
     const processingHandler = pipe(
       formatClassList(classList),
       formatFunctionList(functionList),
-      formatVariable(selectedVar)
+      formatVariableList(variableList),
+      getLogText
     );
-    return processingHandler(format);
+
+    return processingHandler(originalLog);
   }
 
   enclosingBlockName(): void {
@@ -76,9 +101,6 @@ export default class LineCodeProcessing {
       currentLineNum--;
     }
   }
-  /**
-   * Return a boolean indicating if the line code represents a class declaration or not
-   */
 }
 
 interface CodeNode {
@@ -86,6 +108,46 @@ interface CodeNode {
   line: number;
 }
 
+interface LogFormat {
+  text: string;
+  param: Array<string>;
+}
+
+/**
+ * 格式化返回的log信息(class和function)
+ * @param type 类型class或者function
+ * @param typeList 对应类型的列表
+ * @param originalLog 原始的log信息，处理后传出去
+ */
+function formatList(
+  type: string,
+  typeList: Array<CodeNode>,
+  originalLog: LogFormat
+) {
+  // 模板中要求显示, 且能找的对应的值
+  if (originalLog.text.indexOf(formatText[type]) !== -1) {
+    const { value = "", line = -1 } = typeList[typeList.length - 1] || {};
+    const logNode = new LogClassMap[type](type, value, line) as LogNode;
+    originalLog.text = originalLog.text.replace(
+      formatText[type],
+      logNode.getValue()
+    );
+    originalLog.param = originalLog.param.concat(logNode.getLogParam());
+  }
+  return originalLog;
+}
+
+const formatClassList = curry(formatList)("class");
+const formatFunctionList = curry(formatList)("function");
+const formatVariableList = curry(formatList)("variable");
+
+function getLogText(originalLog: LogFormat) {
+  return [`'${originalLog.text}'`].concat(originalLog.param).join(",");
+}
+
+/**
+ * Return a boolean indicating if the line code represents a class declaration or not
+ */
 function checkClass(lineCode: string): boolean {
   const classNameRegex = /class(\s+)[a-zA-Z]+(.*){/;
   return classNameRegex.test(lineCode);
@@ -161,33 +223,3 @@ function getFunctionName(lineCode: string): string {
   }
   return "";
 }
-
-/**
- * 格式化返回的log信息(class和function)
- * @param type 类型 class或者function
- * @param typeList 对应类型的列表
- * @param format 格式
- */
-function formatList(type: string, typeList: Array<CodeNode>, format: string) {
-  let typeName = "";
-  if (typeList.length > 0) {
-    typeName = typeList[typeList.length - 1].value;
-  }
-  return format.replace(formatText[type], typeName || `no ${type}`);
-}
-
-const formatClassList = curry(formatList)("class");
-const formatFunctionList = curry(formatList)("function");
-
-/**
- * 格式化返回的log信息(当前选择的参数)
- * @param variable 参数
- * @param format 格式
- */
-const formatVariable = curry((variable: string, format: string) => {
-  const reg = new RegExp(
-    `(${VARIABLE_FORMAT_TEXT}|${VARIABLE_FORMAT_TEXT})`,
-    "g"
-  );
-  return format.replace(reg, variable);
-});
