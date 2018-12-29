@@ -5,17 +5,27 @@ import * as vscode from "vscode";
 import Message from "./message";
 import { DEFAULT_FORMAT } from "./constant";
 import LogProvider from "./logProvider";
+const languageSupport = [
+  "javascript",
+  "typescript",
+  "typescriptreact",
+  "javascriptreact",
+  "html",
+  "vue"
+];
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   let logProvider = new LogProvider();
 
-  let provider = vscode.languages.registerCompletionItemProvider(
-    "javascript",
-    logProvider
-  );
-  context.subscriptions.push(provider);
+  languageSupport.forEach(key => {
+    const provider = vscode.languages.registerCompletionItemProvider(
+      key,
+      logProvider
+    );
+    context.subscriptions.push(provider);
+  });
 
   vscode.commands.registerCommand("myConsoleLog.displayLog", () => {
     const editor = vscode.window.activeTextEditor;
