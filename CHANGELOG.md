@@ -20,3 +20,7 @@
 #### add:
 
 - 支持使用snippet输入
+
+## [0.0.8]
+#### change: 
+- 对ts/vue/tsx/html的支持
