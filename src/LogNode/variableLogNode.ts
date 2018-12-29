@@ -8,6 +8,6 @@ export default class VariableLogNode extends LogNode {
     if (this.showStyle && this.value) {
       return [`'${this.style}'` || "", "''", this.value];
     }
-    return [this.value];
+    return this.value ? [this.value] : [];
   }
 }

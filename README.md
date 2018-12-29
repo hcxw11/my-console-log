@@ -8,6 +8,21 @@
 1. 选中变量
 2. 使用快捷键alt+shift+l 快速在下插入log，默认格式为`[{C}] [{F}] [{V}]`，输出`console.log('[class] [function] [variable]', variable)`，可在配置中修改需要的格式
 
+### 支持使用snippet输入
+
+![snippet](assets/snippet.gif)
+
+- 支持的snippet：
+
+1. cl -> console.log
+
+2. cw -> console.warn
+
+3. ce -> console.error
+
+- 自动识别参数
+
+
 ### 删除该文件所有的log
 1. 使用快捷键alt+shift+d  
 注： 只针对`console.log`

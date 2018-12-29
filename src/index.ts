@@ -4,10 +4,19 @@
 import * as vscode from "vscode";
 import Message from "./message";
 import { DEFAULT_FORMAT } from "./constant";
+import LogProvider from "./logProvider";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  let logProvider = new LogProvider();
+
+  let provider = vscode.languages.registerCompletionItemProvider(
+    "javascript",
+    logProvider
+  );
+  context.subscriptions.push(provider);
+
   vscode.commands.registerCommand("myConsoleLog.displayLog", () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
@@ -15,10 +24,10 @@ export function activate(context: vscode.ExtensionContext) {
     }
     const selection = editor.selection;
     const lineOfSelectedVar = selection.active.line;
+    const selectedVar = editor.document.getText(selection);
 
     const { format } = vscode.workspace.getConfiguration();
-
-    const message = new Message(editor);
+    const message = new Message(editor, selectedVar, lineOfSelectedVar);
     const log = message.getLog(format || DEFAULT_FORMAT);
 
     editor.edit(editBuilder => {

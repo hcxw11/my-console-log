@@ -5,16 +5,18 @@ import { pipe, curry } from "ramda";
 export default class Message {
   selectedVar: string;
   lineOfSelectedVar: number;
-  tabSize: number;
   lineCodeProcessing: LineCodeProcessing;
   document: vscode.TextDocument;
 
-  constructor(editor: vscode.TextEditor) {
-    const { options, document, selection } = editor;
+  constructor(
+    editor: vscode.TextEditor,
+    selectedVar: string,
+    lineOfSelectedVar: number
+  ) {
+    const { document } = editor;
     this.document = document;
-    this.tabSize = options.tabSize as number;
-    this.selectedVar = document.getText(selection);
-    this.lineOfSelectedVar = selection.active.line;
+    this.selectedVar = selectedVar;
+    this.lineOfSelectedVar = lineOfSelectedVar;
     this.lineCodeProcessing = new LineCodeProcessing(
       document,
       this.selectedVar,
@@ -22,13 +24,13 @@ export default class Message {
     );
   }
 
-  getLog(format: string): string {
+  getLog(format: string, type: string = "log"): string {
     const { document, lineOfSelectedVar, lineCodeProcessing } = this;
     const lineCharts = document.lineAt(lineOfSelectedVar).text;
 
     const getLogHandler = pipe(
       lineCodeProcessing.getProcessing.bind(lineCodeProcessing),
-      getPrintLog,
+      getPrintLog(type),
       getLineSpace(lineCharts)
     );
 
@@ -45,7 +47,9 @@ const getLineSpace = curry((lineChars: string, message: string) => {
   return currentLineSpace + message;
 });
 
-function getPrintLog(message: string): string {
-  const showSemicolon = vscode.workspace.getConfiguration().semicolon;
-  return `console.log(${message})${showSemicolon ? ";" : ""}\r\n`;
-}
+const getPrintLog = curry(
+  (type: string, message: string): string => {
+    const showSemicolon = vscode.workspace.getConfiguration().semicolon;
+    return `console.${type}(${message})${showSemicolon ? ";" : ""}\r\n`;
+  }
+);

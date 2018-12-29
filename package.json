@@ -2,7 +2,7 @@
   "name": "my-console-log",
   "displayName": "My Console Log",
   "description": "vscode extension of create log",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "publisher": "hcxw11",
   "engines": {
     "vscode": "^1.30.0"
@@ -11,6 +11,12 @@
     "Other"
   ],
   "activationEvents": [
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:typescriptreact",
+    "onLanguage:javascriptreact",
+    "onLanguage:html",
+    "onLanguage:vue",
     "onCommand:myConsoleLog.displayLog",
     "onCommand:myConsoleLog.deleteAllLog",
     "onCommand:myConsoleLog.commentAllLog",
