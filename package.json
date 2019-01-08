@@ -51,12 +51,12 @@
         "functionStyle": {
           "type": "string",
           "default": "color:hsl(41, 99%, 38%)",
-          "description": "class style in log"
+          "description": "function style in log"
         },
         "variableStyle": {
           "type": "string",
           "default": "color:hsl(221, 87%, 60%)",
-          "description": "class style in log"
+          "description": "variable style in log"
         }
       }
     },
