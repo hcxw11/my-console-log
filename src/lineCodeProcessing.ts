@@ -67,6 +67,7 @@ export default class LineCodeProcessing {
     return processingHandler(originalLog);
   }
 
+  // 向上解析代码，获取class和function的名字
   enclosingBlockName(): void {
     const { lineOfSelectedVar } = this;
     let currentLineNum = lineOfSelectedVar;
@@ -114,8 +115,8 @@ interface LogFormat {
 }
 
 /**
- * 格式化返回的log信息(class和function)
- * @param type 类型class或者function
+ * 格式化返回的log信息
+ * @param type 类型
  * @param typeList 对应类型的列表
  * @param originalLog 原始的log信息，处理后传出去
  */
@@ -142,7 +143,7 @@ const formatFunctionList = curry(formatList)("function");
 const formatVariableList = curry(formatList)("variable");
 
 function getLogText(originalLog: LogFormat) {
-  return [`'${originalLog.text}'`].concat(originalLog.param).join(",");
+  return [`'${originalLog.text}'`].concat(originalLog.param).join(", ");
 }
 
 /**

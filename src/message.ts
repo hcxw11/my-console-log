@@ -38,6 +38,7 @@ export default class Message {
   }
 }
 
+// 获取字符串的缩进
 const getLineSpace = curry((lineChars: string, message: string) => {
   const spaceReg = /^\s*/.exec(lineChars) || "";
   let currentLineSpace = spaceReg || spaceReg[0];
@@ -47,8 +48,10 @@ const getLineSpace = curry((lineChars: string, message: string) => {
   return currentLineSpace + message;
 });
 
+// 获取console.xx格式的字符串
 const getPrintLog = curry(
   (type: string, message: string): string => {
+    // 是否显示分号
     const showSemicolon = vscode.workspace.getConfiguration().semicolon;
     return `console.${type}(${message})${showSemicolon ? ";" : ""}\r\n`;
   }
